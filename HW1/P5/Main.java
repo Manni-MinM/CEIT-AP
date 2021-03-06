@@ -4,7 +4,11 @@ class Complex {
 	// Private attributes
 	private double real ;
 	private double img ;
-	// Constructor
+	// Constructors (overloaded)
+	public Complex() {
+		real = 0 ;
+		img = 0 ;
+	}
 	public Complex(double first , double second) {
 		real = first ;
 		img = second ;
@@ -33,28 +37,28 @@ class Complex {
 	}
 	// Addition
 	public static Complex add(Complex first , Complex second) {
-		Complex result = new Complex(0 , 0) ;
+		Complex result = new Complex() ;
 		result.real = first.real + second.real ;
 		result.img = first.img + second.img ;
 		return result ;
 	}
 	// Multiplication
 	public static Complex multiply(Complex first , Complex second) {
-		Complex result = new Complex(0 , 0) ;
+		Complex result = new Complex() ;
 		result.real = (first.real * second.real) - (first.img * second.img) ;
 		result.img = (first.real * second.img) + (first.img * second.real) ;
 		return result ;
 	}
 	// Subtraction
 	public static Complex subtract(Complex first , Complex second) {
-		Complex result = new Complex(0 , 0) ;
+		Complex result = new Complex() ;
 		result.real = first.real - second.real ;
 		result.img = first.img - second.img ;
 		return result ;
 	}
 	// Division
 	public static Complex divide(Complex first , Complex second) {
-		Complex result = new Complex(0 , 0) ;
+		Complex result = new Complex() ;
 		result.real = ((first.real * second.real) + (first.img * second.img)) / ((second.real * second.real) + (second.img * second.img)) ;
 		result.img = ((first.img * second.real) - (first.real * second.img)) / ((second.real * second.real) + (second.img * second.img)) ;
 		return result ;
@@ -75,7 +79,7 @@ public class Main {
 		Complex second = new Complex(secondA , secondB) ;
 		
 		char condition ;
-	 	Complex result = new Complex(0 , 0) ;
+	 	Complex result = new Complex() ;
 		
 		while ( true ) {
 			condition = input.next().charAt(0) ;

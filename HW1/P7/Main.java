@@ -38,16 +38,18 @@ public class Main {
 		return result ;
 	}
 	public static boolean checkChange(String str , String rts) {
-		boolean result = false ;
-		if ( str.equals(rts) )
-			{ return result ; }
-		for ( char fi = 'a' ; fi <= 'z' ; fi ++ )
-			for ( char se = 'a' ; se <= 'z' ; se ++ ) {
-				if ( fi != se ) {
-					String cur = change(str , fi , se) ;
-					if ( rts.equals(cur) )
-						result = true ;
-				}
+		if ( str.equals(rts) || str.length() != rts.length() )
+			{ return false ; }
+		boolean result = true ;
+		char strCur = ' ' , rtsCur = ' ' ;
+		for ( int i = 0 ; i < str.length() ; i ++ )
+			if ( str.charAt(i) != rts.charAt(i) ) {
+				if ( strCur == ' ' )
+					strCur = str.charAt(i) ;
+				if ( rtsCur == ' ' )
+					rtsCur = rts.charAt(i) ;
+				if ( (strCur != ' ' && strCur != str.charAt(i)) || (rtsCur != ' ' && rtsCur != rts.charAt(i)) )
+					result = false ;
 			}
 		return result ;
 	}
