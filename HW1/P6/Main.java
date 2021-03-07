@@ -24,6 +24,8 @@ public class Main {
 				result += '1' ;
 			val /= 2 ;
 		}
+		while ( result.length() < 8 )
+			result += "0" ;
 		result = reverse(result) ;
 		return result ;
 	}
