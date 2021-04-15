@@ -1,6 +1,8 @@
 // BWOTSHECHB
 
-import java.util.Date ;
+import org.json.simple.* ;
+
+import java.util.Scanner ;
 
 /**
  * Main class
@@ -10,16 +12,18 @@ import java.util.Date ;
  */
 public class Main {
 	public static void main(String[] args) {
+		Basket basket = new Basket() ;
 		Inventory inventory = new Inventory() ;
+		Scanner input = new Scanner(System.in) ;
 
-		Product carrot = new Product("Carrot" , "Vegetables" , 5 , 20f , new Date(2020 , 3 , 15) , new Date(2021 , 3 , 15)) ; //10
-		Product apple = new Product("Apple" , "Fruits" , 10 , 50f , new Date(2020 , 4 , 1) , new Date(2020 , 8 , 1)) ; //20
-		Product eggs12x = new Product("12xEggs" , "Egg" , 100 , 40f , new Date(2020 , 1 , 1) , new Date(2020 , 6 , 1)) ; //50
-		Product oats = new Product("Oats" , "Grains" , 70 , 100f , new Date(2020 , 6 , 1) , new Date(2021 , 1 , 1)) ; //45
-		Product salmon = new Product("Salmon" , "Seafood" , 150 , 250f , new Date(2020 , 1 , 1) , new Date(2020 , 2 , 1)) ; //5
-		Product stake = new Product("Stake" , "Meat" , 800 , 1000f , new Date(2020 , 3 , 1) , new Date(2020 , 9 , 1)) ; //5
-		Product milk = new Product("Milk" , "Dairy" , 100 , 20f , new Date(2020 , 1 , 10) , new Date(2020 , 1 , 25)) ; //20
-		Product cheese = new Product("Cheese" , "Dairy" , 150 , 10f , new Date(2020 , 2 , 1) , new Date(2020 , 3 , 15)) ; //50
+		Product carrot = new Product("Carrot" , "Vegetables" , 5 , 20f , "15-03-2020" , "15-03-2021") ;
+		Product apple = new Product("Apple" , "Fruits" , 10 , 50f , "01-04-2020" , "01-08-2020") ;
+		Product eggs12x = new Product("12xEggs" , "Egg" , 100 , 40f , "01-01-2020" , "01-06-2020") ;
+		Product oats = new Product("Oats" , "Grains" , 70 , 100f , "01-06-2020" , "01-01-2021") ;
+		Product salmon = new Product("Salmon" , "Seafood" , 150 , 250f , "01-01-2020" , "01-02-2020") ;
+		Product stake = new Product("Stake" , "Meat" , 800 , 1000f , "01-03-2020" , "01-09-2020") ;
+		Product milk = new Product("Milk" , "Dairy" , 100 , 20f , "10-01-2020" , "25-01-2020") ;
+		Product cheese = new Product("Cheese" , "Dairy" , 150 , 10f , "01-02-2020" , "15-03-2020") ;
 
 		inventory.stock(carrot , 10) ;
 		inventory.stock(apple , 20) ;
@@ -30,7 +34,14 @@ public class Main {
 		inventory.stock(milk , 20) ;
 		inventory.stock(cheese , 50) ;
 
+		System.out.println("OK !") ;
 		
+//		JSONObject sample = new JSONObject() ;
+//		sample.put("name" , "Bagher") ;
+//		sample.put("surename" , "Bagherzade") ;
+//		sample.put("age" , 18) ;
+//		System.out.println(sample.toString()) ;
+	
 	}
 }
 

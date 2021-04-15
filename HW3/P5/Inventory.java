@@ -24,7 +24,7 @@ public class Inventory {
 	 * @param item Item to be added to the inventory
 	 */
 	public void add(Product item) {
-		if ( inventory.keySet().contains(item) ) {
+		if ( inventory.keySet().contains(item) )
 			return ;
 		inventory.put(item , 0) ;
 	}
