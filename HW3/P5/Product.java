@@ -38,30 +38,6 @@ public final class Product {
 	}
 	// Methods
 	/**
-	 * Returns the name of the product
-	 *
-	 * @return Name of the product
-	 */
-	public String getName() {
-		return name ;
-	}
-	/**
-	 * Returns the category of the product
-	 *
-	 * @return Category of the product
-	 */
-	public String getCategory() {
-		return category ;
-	}
-	/**
-	 * Returns the weight of the product
-	 *
-	 * @return Weight of the product
-	 */
-	public int getWeight() {
-		return weight ;
-	}
-	/**
 	 * Returns the price of the product
 	 *
 	 * @return Price of the product
@@ -70,29 +46,20 @@ public final class Product {
 		return price ;
 	}
 	/**
-	 * Returns the production date of the product
-	 *
-	 * @return Production date of the product
-	 */
-	public String getProDate() {
-		return proDate.toString() ;
-	}
-	/**
-	 * Returns the expiration date of the product
-	 *
-	 * @return Expiration date of the product
-	 */
-	public String getExpdate() {
-		return expDate.toString() ;
-	}
-	/**
 	 * Override Method - Converts Prodcut to String format
 	 *
 	 * @return Product full details
 	 */
 	@Override
 	public String toString() {
-		return name + " " + category + " " + weight + " " + price + " " + proDate.toString() + " " + expDate.toString() ;
+		return "\t\"Product\": {\n" +
+			"\t\t\"NAME: \"" + name + ",\n" +
+			"\t\t\"CATEGORY: \"" + category + ",\n" +
+			"\t\t\"WEIGHT: \"" + weight + ",\n" +
+			"\t\t\"PRICE: \"" + price + ",\n" +
+			"\t\t\"MANUFACTURE_DATE: \"" + proDate.toString() + ",\n" +
+			"\t\t\"EXPIRATION_DATE: \"" + expDate.toString() + "\n" +
+			"\t}\n" ;
 	}
 	/**
 	 * Override Method - Checks if two Product objects are equal

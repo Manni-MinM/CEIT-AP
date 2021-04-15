@@ -19,6 +19,41 @@ public class Inventory {
 		inventory = new HashMap<Product , Integer>() ;	
 	}
 	/**
+         * Getter Method - Returns number of products in the inventory
+         *
+         * @return The size of the inventory
+         */
+        public int size() {
+        	return inventory.keySet().size() ;
+	}
+	/**
+	 * Getter Method - Returns the product with index $index from the HashMap
+	 *
+	 * @return The desired product 
+	 */
+	public Product getIndex(int index) {
+		index -- ;
+		int it = 0 ;
+		if ( index < 0 || index >= inventory.keySet().size() )
+			return null ;
+		for ( Product item : inventory.keySet() ) {
+			if ( it == index )
+				return item ;
+			it ++ ;
+		}
+		return null ;
+	}
+	/**
+	 * Getter Method - Returns the count of the desired product
+	 *
+	 * @return Count of the desired product
+	 */
+	public int getCount(Product item) {
+		if ( !inventory.keySet().contains(item) )
+			return 0 ;
+		return inventory.get(item) ;
+	}
+	/**
 	 * Adds an item to the inventory
 	 *
 	 * @param item Item to be added to the inventory
@@ -62,9 +97,12 @@ public class Inventory {
 	 */
 	@Override
 	public String toString() {
+		int it = 1 ; 
 		String ret = "" ;
-		for ( Product item : inventory.keySet() )
-			ret += item.toString() + " : " + inventory.get(item) + "\n" ;
+		for ( Product item : inventory.keySet() ) {
+			ret += it + "){\n" + item.toString() + "}instock: " + inventory.get(item) + "\n" ;
+			it ++ ;
+		}
 		return ret ;
 	}
 }
