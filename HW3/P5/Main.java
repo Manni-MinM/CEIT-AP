@@ -1,6 +1,9 @@
 // BWOTSHECHB
 
 import org.json.simple.* ;
+import com.fasterxml.jackson.core.* ;
+import com.fasterxml.jackson.databind.* ;
+import com.fasterxml.jackson.annotation.* ;
 
 import java.util.Scanner ;
 
@@ -15,6 +18,7 @@ public class Main {
 		Basket basket = new Basket() ;
 		Inventory inventory = new Inventory() ;
 		Scanner input = new Scanner(System.in) ;
+//		ObjectMapper mapper = new ObjectMapper().enable(SerializationFeature.INDENT_OUTPUT) ;
 
 		Product carrot = new Product("Carrot" , "Vegetables" , 5 , 20f , "15-03-2020" , "15-03-2021") ;
 		Product apple = new Product("Apple" , "Fruits" , 10 , 50f , "01-04-2020" , "01-08-2020") ;
@@ -34,14 +38,17 @@ public class Main {
 		inventory.stock(milk , 20) ;
 		inventory.stock(cheese , 50) ;
 
-		System.out.println("OK !") ;
+		prettyPrintJson(carrot) ;
 		
-//		JSONObject sample = new JSONObject() ;
-//		sample.put("name" , "Bagher") ;
-//		sample.put("surename" , "Bagherzade") ;
-//		sample.put("age" , 18) ;
-//		System.out.println(sample.toString()) ;
-	
+	}
+	public static void prettyPrintJson(Object object) {
+		ObjectMapper mapper = new ObjectMapper() ;
+		try {
+			System.out.println(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(object)) ;
+		}
+		catch (JsonProcessingException exception) {
+			// Pass
+		}
 	}
 }
 
