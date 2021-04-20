@@ -28,13 +28,13 @@ public final class Product {
 	 * @param proDate Production date of the product
 	 * @param expDate Expiration date of the product 
 	 */
-	public Product(String name , String category , int weight , double price , String proDate , String expDate) {
+	public Product(String name , String category , int weight , double price , LocalDate proDate , LocalDate expDate) {
 		this.name = name ;
 		this.category = category ;
 		this.weight = weight ;
 		this.price = price ;
-		this.proDate = LocalDate.parse(proDate , DateTimeFormatter.ofPattern("dd-MM-yyyy")) ;
-		this.expDate = LocalDate.parse(expDate , DateTimeFormatter.ofPattern("dd-MM-yyyy")) ;
+		this.proDate = proDate ;
+		this.expDate = expDate ;
 	}
 	// Methods
 	/**

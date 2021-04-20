@@ -2,6 +2,8 @@
 
 import java.util.Scanner ;
 import java.util.HashMap ;
+import java.time.LocalDate ;
+import java.time.format.DateTimeFormatter ;
 
 /**
  * Main class
@@ -25,14 +27,14 @@ public class Main {
 		inventory = new Inventory() ;
 		input = new Scanner(System.in) ;
 		// Create the products
-		Product carrot = new Product("Carrot" , "Vegetables" , 5 , 20f , "15-03-2020" , "15-03-2021") ;
-		Product apple = new Product("Apple" , "Fruits" , 10 , 50f , "01-04-2020" , "01-08-2020") ;
-		Product eggs12x = new Product("12xEggs" , "Egg" , 100 , 40f , "01-01-2020" , "01-06-2020") ;
-		Product oats = new Product("Oats" , "Grains" , 70 , 100f , "01-06-2020" , "01-01-2021") ;
-		Product salmon = new Product("Salmon" , "Seafood" , 150 , 250f , "01-01-2020" , "01-02-2020") ;
-		Product stake = new Product("Stake" , "Meat" , 800 , 1000f , "01-03-2020" , "01-09-2020") ;
-		Product milk = new Product("Milk" , "Dairy" , 100 , 20f , "10-01-2020" , "25-01-2020") ;
-		Product cheese = new Product("Cheese" , "Dairy" , 150 , 10f , "01-02-2020" , "15-03-2020") ;
+		Product carrot = addProduct("Carrot" , "Vegetables" , 5 , 20f , "15-03-2020" , "15-03-2021") ;
+		Product apple = addProduct("Apple" , "Fruits" , 10 , 50f , "01-04-2020" , "01-08-2020") ;
+		Product eggs12x = addProduct("12xEggs" , "Egg" , 100 , 40f , "01-01-2020" , "01-06-2020") ;
+		Product oats = addProduct("Oats" , "Grains" , 70 , 100f , "01-06-2020" , "01-01-2021") ;
+		Product salmon = addProduct("Salmon" , "Seafood" , 150 , 250f , "01-01-2020" , "01-02-2020") ;
+		Product stake = addProduct("Stake" , "Meat" , 800 , 1000f , "01-03-2020" , "01-09-2020") ;
+		Product milk = addProduct("Milk" , "Dairy" , 100 , 20f , "10-01-2020" , "25-01-2020") ;
+		Product cheese = addProduct("Cheese" , "Dairy" , 150 , 10f , "01-02-2020" , "15-03-2020") ;
 		// Add products to inventory
 		inventory.stock(carrot , 10) ;
 		inventory.stock(apple , 20) ;
@@ -65,6 +67,25 @@ public class Main {
 		}
 	}
 	// Methods
+	/**
+	 * Checks for valid parameter and adds item to the Inventory if valid
+	 *
+	 * @param name Name of the product
+	 * @param category Category of the specified product
+	 * @param weight Weight of the product
+	 * @param price Price of the product
+	 * @param proDate Production date of the product
+	 * @param expDate Expiration date of the product
+	 */
+	public static Product addProduct(String name , String category , int weight , double price , String proDate , String expDate) {
+		LocalDate productionDate = LocalDate.parse(proDate , DateTimeFormatter.ofPattern("dd-MM-yyyy")) ;
+		LocalDate expirationDate = LocalDate.parse(expDate , DateTimeFormatter.ofPattern("dd-MM-yyyy")) ;
+		if ( expirationDate.compareTo(productionDate) < 0 ) {
+			System.out.printf("Invalid production date and expiration date (item : %s)\n" , name) ;
+			return null ;
+		}
+		return (new Product(name , category , weight , price , productionDate , expirationDate)) ;
+	}
 	/**
 	 * Displays all products avaliable in the inventory
 	 */
