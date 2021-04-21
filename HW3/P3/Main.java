@@ -14,13 +14,16 @@ public class Main {
 		Stack stack = new Stack(lineSplit.length) ;
 		for ( String element : lineSplit )
 			list.add(Integer.parseInt(element)) ;
-		for ( int i = 0 ; i < list.size() ; i ++ )
-			stack.push(list.findIndex(i)) ;
+		int size = list.size() ;
+		for ( int i = 0 ; i < size ; i ++ ) {
+			stack.push(list.findIndex(0)) ;
+			list.removeIndex(0) ;
+		}
 		while ( !stack.isEmpty() ) {
-			System.out.printf("%d " , stack.peek()) ;
+			list.add(stack.peek()) ;
 			stack.pop() ;
 		}
-		System.out.println() ;
+		list.print() ;
 	}
 }
 
