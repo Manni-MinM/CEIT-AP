@@ -51,14 +51,18 @@ public class Pile {
 
 		Collections.shuffle(pile) ;
 	}
+	// Methods
 	public int size() {
 		return pile.size() ;
+	}
+	public boolean isEmpty() {
+		return (size() == 0) ;
 	}
 	public void show() {
 		for ( Card card : pile )
 			System.out.println(card.toString()) ;
 	}
-	public Card drawCard() {
+	public Card drawTopCard() {
 		Card returnValue = pile.get(0) ;
 		pile.remove(0) ;
 		return returnValue ;

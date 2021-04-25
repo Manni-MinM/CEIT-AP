@@ -5,6 +5,8 @@ public abstract class Card {
 	protected int point ;
 	protected String rank ;
 	protected String color ;
+	// Constructor
+	
 	// Methods
 	public int getPoint() {
 		return point ;
