@@ -23,5 +23,8 @@ public abstract class Card {
 		Card card = (Card)object ;
 		return (this.getRank().equals(card.getRank()) && this.getColor().equals(card.getColor())) ;
 	}
+	public String toString() {
+		return (this.getRank() + "-" + this.getColor()) ;
+	}
 }
 
