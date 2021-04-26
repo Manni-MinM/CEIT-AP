@@ -63,6 +63,8 @@ public class Pile {
 			System.out.println(card.toString()) ;
 	}
 	public void addCard(Card card) {
+		if ( card.getRank().equals("NULL") )
+			return ;
 		pile.add(card) ;
 	}
 	public Card drawTopCard() {

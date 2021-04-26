@@ -5,17 +5,19 @@ import java.util.Scanner ;
 public class Main {
 	public static void main(String[] args) {
 		Game game = new Game() ;
-		Scanner input = new Scanner(System.in) ;
-		
+		Scanner input = new Scanner(System.in) ;	
 		showMenu() ;
 		while ( true ) {
 			String line = input.nextLine() ;
 			if ( line.equals("Play With Bots") ) {
-				// TODO
+				game.startSingleplayer() ;
+				game.run() ;
+				game.end() ;
 			}
 			else if ( line.equals("Play With Friends") ) {
-				game.start() ;
+				game.startMultiplayer() ;
 				game.run() ;
+				game.end() ;
 			}
 			else if ( line.equals("Exit") )
 				break ;

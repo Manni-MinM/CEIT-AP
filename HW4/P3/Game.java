@@ -2,6 +2,7 @@
 
 import java.util.Scanner ;
 import java.util.ArrayList ;
+import java.util.Collections ;
 
 public class Game {
 	// Fields
@@ -38,7 +39,22 @@ public class Game {
 				found = true ;
 		return found ;
 	}
-	public void start() {
+	public void startSingleplayer() {
+		// Get info
+		System.out.print("Enter The Number Of Players : ") ;
+		playerCount = input.nextInt() ;
+		String trash = input.nextLine() ;
+		System.out.print("Enter Your Username : ") ;
+		String username = input.nextLine() ;
+		// Build game
+		pile = new Pile() ;
+		players.add(new Human(username)) ;
+		for ( int it = 1 ; it <= playerCount - 1 ; it ++ )
+			players.add(new Bot("Bot " + it)) ;
+		initDraw() ;
+		topCard = pile.drawTopCard() ;
+	}
+	public void startMultiplayer() {
 		// Get info
 		System.out.print("Enter The Number Of Players : ") ;
 		playerCount = input.nextInt() ;
@@ -108,11 +124,24 @@ public class Game {
 					turn = (turn + 2 * direction + playerCount) % (playerCount) ;
 				}
 				else if ( targetCard instanceof WildCard ) {
-					// TODO 
+					String targetColor = targetPlayer.getWildCardColor() ;
+					Card colorChanger = new NormalCard("NULL" , targetColor) ;
+					pile.addCard(topCard) ;
+					topCard = colorChanger ;
 					turn = (turn + direction + playerCount) % (playerCount) ;
 				}
 			}
 			System.out.println("################################") ;
+		}
+	}
+	public void end() {
+		for ( Player player : players )
+			player.calculatePoint() ;
+		Collections.sort(players , new Player.Compare()) ;
+		System.out.println("SCOREBOARD : ") ;
+		int it = 1 ;
+		for ( Player player : players ) {
+			System.out.println(it + ") " + player.getUsername()) ;
 		}
 	}
 }

@@ -53,5 +53,15 @@ public class Human extends Player {
 		deck.removeCard(targetCard) ;
 		return targetCard ;
 	}
+	public String getWildCardColor() {
+		String targetColor = null ;
+		while ( true ) {
+			targetColor = input.nextLine() ;
+			if ( targetColor.equals("RED") || targetColor.equals("GREEN") ||
+				targetColor.equals("BLUE") || targetColor.equals("BLACK"))
+					break ;
+		}
+		return targetColor ;
+	}
 }
 
