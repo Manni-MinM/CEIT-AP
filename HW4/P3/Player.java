@@ -27,5 +27,5 @@ public abstract class Player {
 		deck.show() ;
 		System.out.println() ;
 	}
-	public abstract Card playTurn(Card topCard) ;
+	public abstract Card playCard(Card topCard) ;
 }

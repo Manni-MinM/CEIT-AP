@@ -8,7 +8,7 @@ public class Bot extends Player {
 		super(username) ;
 	}
 	// Methods
-	public Card playTurn(Card topCard) {
+	public Card playCard(Card topCard) {
 		return null ;
 	}
 }

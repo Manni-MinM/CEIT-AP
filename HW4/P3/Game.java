@@ -62,16 +62,55 @@ public class Game {
 			showTopCard() ;
 			showPlayers() ;
 			Player targetPlayer = players.get(turn) ;
-			Card targetCard = targetPlayer.playTurn(topCard) ;
-			if ( targetCard == null )
+			Card targetCard = targetPlayer.playCard(topCard) ;
+			if ( targetCard == null ) {
 				targetPlayer.getDeck().addCard(pile.drawTopCard()) ;
+				Card secondCard = targetPlayer.playCard(topCard) ;
+				if ( secondCard != null ) {
+					pile.addCard(topCard) ;
+					targetPlayer.getDeck().removeCard(targetCard) ;
+					topCard = targetCard ;
+				}
+				turn = (turn + direction + playerCount) % (playerCount - 1) ;
+			}
 			else {
 				pile.addCard(topCard) ;
 				targetPlayer.getDeck().removeCard(targetCard) ;
 				topCard = targetCard ;
+				Player nextPlayer = players.get((turn + direction + playerCount) % (playerCount - 1)) ;
+				if ( targetCard instanceof NormalCard ) {
+					turn = (turn + direction + playerCount) % (playerCount - 1) ;
+				}
+				else if ( targetCard instanceof ForceCard ) {
+					Card actionCard = targetPlayer.playCard(null) ;
+					nextPlayer.getDeck().addCard(actionCard) ;
+					turn = (turn + direction + playerCount) % (playerCount - 1) ;
+				}
+				else if ( targetCard instanceof DrawFourCard ) {
+					for ( int it = 1 ; it <= 4 ; it ++ )
+						nextPlayer.getDeck().addCard(pile.drawTopCard()) ;
+					turn = (turn + direction + playerCount) % (playerCount - 1) ;
+				}
+				else if ( targetCard instanceof DrawTwoCard ) {
+					for ( int it = 1 ; it <= 2 ; it ++ )
+						nextPlayer.getDeck().addCard(pile.drawTopCard()) ;
+					turn = (turn + direction + playerCount) % (playerCount - 1) ;
+				}
+				else if ( targetCard instanceof PrizeCard ) {
+					// pass
+				}
+				else if ( targetCard instanceof ReverseCard ) {
+					direction = -1 ;
+					turn = (turn + direction + playerCount) % (playerCount - 1) ;
+				}
+				else if ( targetCard instanceof SkipCard ) {
+					turn = (turn + 2 * direction + playerCount) % (playerCount - 1) ;
+				}
+				else if ( targetCard instanceof WildCard ) {
+					// TODO 
+					turn = (turn + direction + playerCount) % (playerCount - 1) ;
+				}
 			}
-			turn = (turn + direction) % (playerCount - 1) ;
-			// TODO : Add feature cards to game
 		}
 	}
 }
