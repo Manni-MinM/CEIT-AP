@@ -62,6 +62,9 @@ public class Pile {
 		for ( Card card : pile )
 			System.out.println(card.toString()) ;
 	}
+	public void addCard(Card card) {
+		pile.add(card) ;
+	}
 	public Card drawTopCard() {
 		Card returnValue = pile.get(0) ;
 		pile.remove(0) ;

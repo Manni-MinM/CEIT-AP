@@ -28,5 +28,8 @@ public abstract class Card {
 	public String toString() {
 		return (this.getRank() + "-" + this.getColor()) ;
 	}
+	public boolean isValid(Card nextCard) {
+		return (this.getRank().equals(nextCard.getRank()) || this.getColor().equals(nextCard.getColor())) ;
+	}
 }
 

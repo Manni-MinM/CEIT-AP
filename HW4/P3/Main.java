@@ -11,10 +11,11 @@ public class Main {
 		while ( true ) {
 			String line = input.nextLine() ;
 			if ( line.equals("Play With Bots") ) {
-				game.start() ;
+				// TODO
 			}
 			else if ( line.equals("Play With Friends") ) {
-				// TODO
+				game.start() ;
+				game.run() ;
 			}
 			else if ( line.equals("Exit") )
 				break ;

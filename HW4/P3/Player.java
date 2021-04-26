@@ -21,4 +21,11 @@ public abstract class Player {
 	public String getUsername() {
 		return username ;
 	}
+	public void show() {
+		System.out.println("Username : " + username) ;
+		System.out.println("Point : " + point) ;
+		deck.show() ;
+		System.out.println() ;
+	}
+	public abstract Card playTurn(Card topCard) ;
 }
