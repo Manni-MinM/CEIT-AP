@@ -59,6 +59,8 @@ public class Game {
 		int direction = 1 ;
 		while ( !playerWithNoCardsExists() ) {
 			System.out.println(players.get(turn).getUsername() + "'s Turn") ;
+			// DEBUG
+			System.out.println("turn is : " + turn) ;
 			showTopCard() ;
 			showPlayers() ;
 			Player targetPlayer = players.get(turn) ;
@@ -71,46 +73,46 @@ public class Game {
 					targetPlayer.getDeck().removeCard(targetCard) ;
 					topCard = targetCard ;
 				}
-				turn = (turn + direction + playerCount) % (playerCount - 1) ;
+				turn = (turn + direction + playerCount) % (playerCount) ;
 			}
 			else {
 				pile.addCard(topCard) ;
-				targetPlayer.getDeck().removeCard(targetCard) ;
 				topCard = targetCard ;
-				Player nextPlayer = players.get((turn + direction + playerCount) % (playerCount - 1)) ;
+				Player nextPlayer = players.get((turn + direction + playerCount) % (playerCount)) ;
 				if ( targetCard instanceof NormalCard ) {
-					turn = (turn + direction + playerCount) % (playerCount - 1) ;
+					turn = (turn + direction + playerCount) % (playerCount) ;
 				}
 				else if ( targetCard instanceof ForceCard ) {
 					Card actionCard = targetPlayer.playCard(null) ;
 					nextPlayer.getDeck().addCard(actionCard) ;
-					turn = (turn + direction + playerCount) % (playerCount - 1) ;
+					turn = (turn + direction + playerCount) % (playerCount) ;
 				}
 				else if ( targetCard instanceof DrawFourCard ) {
 					for ( int it = 1 ; it <= 4 ; it ++ )
 						nextPlayer.getDeck().addCard(pile.drawTopCard()) ;
-					turn = (turn + direction + playerCount) % (playerCount - 1) ;
+					turn = (turn + direction + playerCount) % (playerCount) ;
 				}
 				else if ( targetCard instanceof DrawTwoCard ) {
 					for ( int it = 1 ; it <= 2 ; it ++ )
 						nextPlayer.getDeck().addCard(pile.drawTopCard()) ;
-					turn = (turn + direction + playerCount) % (playerCount - 1) ;
+					turn = (turn + direction + playerCount) % (playerCount) ;
 				}
 				else if ( targetCard instanceof PrizeCard ) {
 					// pass
 				}
 				else if ( targetCard instanceof ReverseCard ) {
 					direction = -1 ;
-					turn = (turn + direction + playerCount) % (playerCount - 1) ;
+					turn = (turn + direction + playerCount) % (playerCount) ;
 				}
 				else if ( targetCard instanceof SkipCard ) {
-					turn = (turn + 2 * direction + playerCount) % (playerCount - 1) ;
+					turn = (turn + 2 * direction + playerCount) % (playerCount) ;
 				}
 				else if ( targetCard instanceof WildCard ) {
 					// TODO 
-					turn = (turn + direction + playerCount) % (playerCount - 1) ;
+					turn = (turn + direction + playerCount) % (playerCount) ;
 				}
 			}
+			System.out.println("################################") ;
 		}
 	}
 }

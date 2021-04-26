@@ -50,6 +50,7 @@ public class Human extends Player {
 			if ( avaliable.contains(targetCard) )
 				break ;
 		}
+		deck.removeCard(targetCard) ;
 		return targetCard ;
 	}
 }
