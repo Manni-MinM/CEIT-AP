@@ -21,8 +21,8 @@ public class Bot extends Player {
 	}
 	// Methods
 	/**
-	 * Chooses a card and plays it
-	 * Finds all avaliable cards for play and adds it to a list then chooses one from it at random
+	 * Chooses a Card and plays it
+	 * Finds all avaliable Cards for play and adds it to a list then chooses one from it at random
 	 *
 	 * @param topCard Top card which is in play now 
 	 * @return If a card can be played returns the card otherwise returns null

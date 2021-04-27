@@ -3,15 +3,33 @@
 import java.util.Scanner ;
 import java.util.ArrayList ;
 
+/**
+ * A Class to hold information about the Human Players
+ *
+ * @author Manni Moghimi
+ * @version v1.0
+ */
 public class Human extends Player {
 	// Fields
 	Scanner input ;
 	// Constructor
+	/**
+	 * Creates Human Object
+	 *
+	 * @param username Username of the Human
+	 */
 	public Human(String username) {
 		super(username) ;
 		input = new Scanner(System.in) ;
 	}
 	// Methods
+	/**
+	 * Creates the Card according with its correct type according to its rank and color
+	 *
+	 * @param rank Rank of the Card
+	 * @param color Color of the Card
+	 * @return The Card Object of the Card created in the method
+	 */
 	public Card createCard(String rank , String color) {
 		Card targetCard = null ;
 		if ( rank.equals("3") || rank.equals("4") || rank.equals("5") ||
@@ -33,6 +51,13 @@ public class Human extends Player {
 			targetCard = new WildCard(rank , color) ;
 		return targetCard ;
 	}
+	/**
+	 * Prompts the Player for to choose a Card and plays it
+	 * Finds all avaliable Cards for play and adds it to a list then chooses one from it at random
+	 *
+	 * @param topCard Top card which is in play now 
+	 * @return If a card can be played returns the card otherwise returns null
+	 */
 	public Card playCard(Card topCard) {
 		// Find avaliable cards
 		ArrayList<Card> avaliable = new ArrayList<Card>() ;
@@ -59,6 +84,11 @@ public class Human extends Player {
 		deck.removeCard(targetCard) ;
 		return targetCard ;
 	}
+	/**
+	 * Chooses a color at random after using the wildcard
+	 *
+	 * @return The color chosen at random
+	 */
 	public String getWildCardColor() {
 		String targetColor = null ;
 		while ( true ) {

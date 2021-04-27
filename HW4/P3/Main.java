@@ -3,6 +3,12 @@
 import java.util.Scanner ;
 import java.util.concurrent.TimeUnit ;
 
+/**
+ * Main Class
+ *
+ * @author Manni Moghimi
+ * @version v1.0
+ */
 public class Main {
 	public static void main(String[] args) {
 		Game game = new Game() ;
@@ -28,6 +34,11 @@ public class Main {
 				handleMenuException() ;
 		}
 	}
+	/**
+	 * Clears the screen using an ANSI escape code then waits for some time
+	 *
+	 * @param seconds The number of seconds the program should wait
+	 */
 	public static void clearScreen(int seconds) {
 		if ( seconds == 0 ) {
 			System.out.print("\033[H\033[2J") ;
@@ -40,6 +51,9 @@ public class Main {
 		}
 		System.out.print("\033[H\033[2J") ;
 	}
+	/**
+	 * Shows the main menu
+	 */
 	public static void showMenu() {
 		System.out.print("\u001B[36m") ;
 		System.out.println("Play With Bots") ;
@@ -47,6 +61,9 @@ public class Main {
 		System.out.println("Exit") ;
 		System.out.println("\u001B[0m") ;
 	}
+	/**
+	 * Prints an error for the user if command is invalid in the menu
+	 */
 	public static void handleMenuException() {
 		System.out.println("[Command Not Found]") ;
 	}
@@ -55,5 +72,5 @@ public class Main {
 /*
 TODO :
 	add more visuals and get better input
-	**ADD JAVADOC**
 */
+
