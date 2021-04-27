@@ -39,28 +39,36 @@ public class Human extends Player {
 		for ( Card card : getDeck().getCards() )
 			if ( (topCard != null && topCard.isValid(card)) || topCard == null )
 				avaliable.add(card) ;
+		System.out.print("\u001B[36m" + "Avaliable : " + "\u001B[0m") ;
+		for ( Card card : avaliable )
+			System.out.print(card.toString() + " ") ;
+		System.out.printf("\n\n") ;
 		if ( avaliable.size() == 0 )
 			return null ;
 		// Get info
 		Card targetCard = null ;
 		while ( true ) {
+			System.out.print("\u001B[36m" + "Selected Card : " + "\u001B[0m") ;
 			String line = input.nextLine() ;
 			String[] lineSplit = line.split("-") ;
 			targetCard = createCard(lineSplit[0] , lineSplit[1]) ;
 			if ( avaliable.contains(targetCard) )
 				break ;
 		}
+		System.out.println() ;
 		deck.removeCard(targetCard) ;
 		return targetCard ;
 	}
 	public String getWildCardColor() {
 		String targetColor = null ;
 		while ( true ) {
+			System.out.print("\u001B[36m" + "Selected Color{RED , GREEN , BLUE , BLACK} : " + "\u001B[0m") ;
 			targetColor = input.nextLine() ;
 			if ( targetColor.equals("RED") || targetColor.equals("GREEN") ||
 				targetColor.equals("BLUE") || targetColor.equals("BLACK"))
 					break ;
 		}
+		System.out.println() ;
 		return targetColor ;
 	}
 }

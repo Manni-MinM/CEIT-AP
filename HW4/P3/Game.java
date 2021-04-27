@@ -3,6 +3,7 @@
 import java.util.Scanner ;
 import java.util.ArrayList ;
 import java.util.Collections ;
+import java.util.concurrent.TimeUnit ;
 
 public class Game {
 	// Fields
@@ -19,6 +20,18 @@ public class Game {
 		players = new ArrayList<Player>() ;
 	}
 	// Methods
+	public void clearScreen(int seconds) {
+		if ( seconds == 0 ) {
+			System.out.print("\033[H\033[2J") ;
+			return ;
+		}
+		try {
+			TimeUnit.SECONDS.sleep(seconds) ;
+		} catch (Exception exception) {
+			
+		}
+		System.out.print("\033[H\033[2J") ;
+	}
 	public void showTopCard() {
 		ArrayList<String> lines = topCard.stringed() ;
 		for ( String line : lines )
@@ -38,10 +51,11 @@ public class Game {
 	}
 	public void startSingleplayer() {
 		// Get info
-		System.out.print("Enter The Number Of Players : ") ;
+		clearScreen(0) ;
+		System.out.print("\u001B[36m" + "Enter The Number Of Players : " + "\u001B[0m") ;
 		playerCount = input.nextInt() ;
 		String trash = input.nextLine() ;
-		System.out.print("Enter Your Username : ") ;
+		System.out.print("\u001B[36m" + "Enter Your Username : " + "\u001B[0m") ;
 		String username = input.nextLine() ;
 		// Build game
 		pile = new Pile() ;
@@ -50,20 +64,24 @@ public class Game {
 			players.add(new Bot("Bot " + it)) ;
 		initDraw() ;
 		topCard = pile.drawTopCard() ;
+		clearScreen(3) ;
 	}
 	public void startMultiplayer() {
 		// Get info
-		System.out.print("Enter The Number Of Players : ") ;
+		clearScreen(0) ;
+		System.out.print("\u001B[36m" + "Enter The Number Of Players : " + "\u001B[36m") ;
 		playerCount = input.nextInt() ;
 		String trash = input.nextLine() ;
 		// Build game
 		pile = new Pile() ;
 		for ( int it = 1 ; it <= playerCount ; it ++ ) {
+			System.out.print("\u001B[36m" + "Username : " + "\u001B[0m") ;
 			String username = input.nextLine() ;
 			players.add(new Human(username)) ;
 		}
 		initDraw() ;
 		topCard = pile.drawTopCard() ;
+		clearScreen(3) ;
 	}
 	public void run() {
 		// Index of player who should play a card
@@ -74,17 +92,20 @@ public class Game {
 			Player targetPlayer = players.get(turn) ;
 			System.out.println("\u001B[36m" + targetPlayer.getUsername() + "'s Turn" + "\u001B[0m") ;
 			showTopCard() ;
+			System.out.println("\u001B[36m" + targetPlayer.getUsername() + "'s Deck" + "\u001B[0m") ;
+			// if ( targetPlayer instanceof Human )
 			targetPlayer.show() ;
 			Card targetCard = targetPlayer.playCard(topCard) ;
 			if ( targetCard == null ) {
-				targetPlayer.getDeck().addCard(pile.drawTopCard()) ;
-				Card secondCard = targetPlayer.playCard(topCard) ;
-				if ( secondCard != null ) {
-					pile.addCard(topCard) ;
-					targetPlayer.getDeck().removeCard(targetCard) ;
-					topCard = targetCard ;
+				Card secondCard = pile.drawTopCard() ;
+				targetPlayer.getDeck().addCard(secondCard) ;
+				if ( topCard.isValid(secondCard) ) {
+					// Pass
 				}
-				turn = (turn + direction + playerCount) % (playerCount) ;
+				else {
+					turn = (turn + direction + playerCount) % (playerCount) ;
+					System.out.println("\u001B[33m" + "No Avaliable Moves : [TURN PASSED]" + "\u001B[0m") ;
+				}
 			}
 			else {
 				pile.addCard(topCard) ;
@@ -109,7 +130,7 @@ public class Game {
 					turn = (turn + direction + playerCount) % (playerCount) ;
 				}
 				else if ( targetCard instanceof PrizeCard ) {
-					// pass
+					// Pass
 				}
 				else if ( targetCard instanceof ReverseCard ) {
 					direction = -1 ;
@@ -126,7 +147,10 @@ public class Game {
 					turn = (turn + direction + playerCount) % (playerCount) ;
 				}
 			}
-			System.out.println("################################") ;
+			if ( targetPlayer instanceof Bot )
+				clearScreen(5) ;
+			else
+				clearScreen(1) ;
 		}
 	}
 	public void end() {
@@ -137,7 +161,9 @@ public class Game {
 		int it = 1 ;
 		for ( Player player : players ) {
 			System.out.println(it + ") " + player.getUsername()) ;
+			it ++ ;
 		}
+		clearScreen(10) ;
 	}
 }
 

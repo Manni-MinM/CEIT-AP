@@ -56,7 +56,7 @@ public abstract class Card {
 		return (this.getRank() + "-" + this.getColor()) ;
 	}
 	public boolean isValid(Card nextCard) {
-		return (this.getRank().equals(nextCard.getRank()) || this.getColor().equals(nextCard.getColor()) || this.getRank().equals("B")) ;
+		return (this.getRank().equals(nextCard.getRank()) || this.getColor().equals(nextCard.getColor()) || nextCard.getRank().equals("B")) ;
 	}
 	public ArrayList<String> stringed() {
 		ArrayList<String> line = new ArrayList<String>() ;
@@ -90,27 +90,27 @@ public abstract class Card {
 		ArrayList<String> line = new ArrayList<String>() ;
 		Color paint = new Color() ;
 		if ( rank.equals("NULL") ) {
-			line.add(paint.getANSI(color) + "┍━━━━━━━━" + paint.getANSI("RESET")) ;
-			line.add(paint.getANSI(color) + "│        " + paint.getANSI("RESET")) ;
-			line.add(paint.getANSI(color) + "│        " + paint.getANSI("RESET")) ;	
-			line.add(paint.getANSI(color) + "│        " + paint.getANSI("RESET")) ;
-			line.add(paint.getANSI(color) + "│        " + paint.getANSI("RESET")) ;
-			line.add(paint.getANSI(color) + "│        " + paint.getANSI("RESET")) ;
-			line.add(paint.getANSI(color) + "│        " + paint.getANSI("RESET")) ;
-			line.add(paint.getANSI(color) + "┕━━━━━━━━" + paint.getANSI("RESET")) ;
+			line.add(paint.getANSI(color) + "┍━━━━━" + paint.getANSI("RESET")) ;
+			line.add(paint.getANSI(color) + "│     " + paint.getANSI("RESET")) ;
+			line.add(paint.getANSI(color) + "│     " + paint.getANSI("RESET")) ;	
+			line.add(paint.getANSI(color) + "│     " + paint.getANSI("RESET")) ;
+			line.add(paint.getANSI(color) + "│     " + paint.getANSI("RESET")) ;
+			line.add(paint.getANSI(color) + "│     " + paint.getANSI("RESET")) ;
+			line.add(paint.getANSI(color) + "│     " + paint.getANSI("RESET")) ;
+			line.add(paint.getANSI(color) + "┕━━━━━" + paint.getANSI("RESET")) ;
 		}
 		else {
-			line.add(paint.getANSI(color) + "┍━━━━━━━━" + paint.getANSI("RESET")) ;
-			line.add(paint.getANSI(color) + "│        " + paint.getANSI("RESET")) ;
+			line.add(paint.getANSI(color) + "┍━━━━━" + paint.getANSI("RESET")) ;
+			line.add(paint.getANSI(color) + "│     " + paint.getANSI("RESET")) ;
 			if ( getRank().equals("10") )
-				line.add(paint.getANSI(color) + "│ "+ getRank() + "     " + paint.getANSI("RESET")) ;
+				line.add(paint.getANSI(color) + "│ "+ getRank() + "  " + paint.getANSI("RESET")) ;
 			else
-				line.add(paint.getANSI(color) + "│ "+ getRank() + "      " + paint.getANSI("RESET")) ;
-			line.add(paint.getANSI(color) + "│        " + paint.getANSI("RESET")) ;
-			line.add(paint.getANSI(color) + "│        " + paint.getANSI("RESET")) ;
-			line.add(paint.getANSI(color) + "│        " + paint.getANSI("RESET")) ;
-			line.add(paint.getANSI(color) + "│        " + paint.getANSI("RESET")) ;
-			line.add(paint.getANSI(color) + "┕━━━━━━━━" + paint.getANSI("RESET")) ;
+				line.add(paint.getANSI(color) + "│ "+ getRank() + "   " + paint.getANSI("RESET")) ;
+			line.add(paint.getANSI(color) + "│     " + paint.getANSI("RESET")) ;
+			line.add(paint.getANSI(color) + "│     " + paint.getANSI("RESET")) ;
+			line.add(paint.getANSI(color) + "│     " + paint.getANSI("RESET")) ;
+			line.add(paint.getANSI(color) + "│     " + paint.getANSI("RESET")) ;
+			line.add(paint.getANSI(color) + "┕━━━━━" + paint.getANSI("RESET")) ;
 		}
 		return line ;
 	}
