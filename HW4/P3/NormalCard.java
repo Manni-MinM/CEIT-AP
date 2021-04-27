@@ -7,7 +7,9 @@ public class NormalCard extends Card {
 	public NormalCard(String rank , String color) {
 		this.rank = rank ;
 		this.color = color ;
-		if ( rank.equals("C") )
+		if ( rank.equals("NULL") )
+			this.point = 0 ;
+		else if ( rank.equals("C") )
 			this.point = 12 ;
 		else if ( rank.equals("D") )
 			this.point = 13 ;

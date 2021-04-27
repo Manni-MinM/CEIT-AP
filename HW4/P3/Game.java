@@ -20,12 +20,9 @@ public class Game {
 	}
 	// Methods
 	public void showTopCard() {
-		System.out.println("Top Card is  : " + topCard.toString()) ;
-		System.out.println() ;
-	}
-	public void showPlayers() {
-		for ( Player player : players )
-			player.show() ;
+		ArrayList<String> lines = topCard.stringed() ;
+		for ( String line : lines )
+			System.out.println(line) ;
 	}
 	public void initDraw() {
 		for ( Player player : players )
@@ -74,12 +71,10 @@ public class Game {
 		// 1 : clockwise | -1 : anticlockwise
 		int direction = 1 ;
 		while ( !playerWithNoCardsExists() ) {
-			System.out.println(players.get(turn).getUsername() + "'s Turn") ;
-			// DEBUG
-			System.out.println("turn is : " + turn) ;
-			showTopCard() ;
-			showPlayers() ;
 			Player targetPlayer = players.get(turn) ;
+			System.out.println("\u001B[36m" + targetPlayer.getUsername() + "'s Turn" + "\u001B[0m") ;
+			showTopCard() ;
+			targetPlayer.show() ;
 			Card targetCard = targetPlayer.playCard(topCard) ;
 			if ( targetCard == null ) {
 				targetPlayer.getDeck().addCard(pile.drawTopCard()) ;

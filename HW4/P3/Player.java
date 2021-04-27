@@ -35,8 +35,6 @@ public abstract class Player {
 			point += card.getPoint() ;
 	}
 	public void show() {
-		System.out.println("Username : " + username) ;
-		System.out.println("Point : " + point) ;
 		deck.show() ;
 		System.out.println() ;
 	}
