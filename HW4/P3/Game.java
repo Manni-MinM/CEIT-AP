@@ -80,9 +80,13 @@ public class Game {
 	public void startSingleplayer() {
 		// Get info
 		clearScreen(0) ;
-		System.out.print("\u001B[36m" + "Enter The Number Of Players : " + "\u001B[0m") ;
-		playerCount = input.nextInt() ;
-		String trash = input.nextLine() ;
+		while ( true ) {
+			System.out.print("\u001B[36m" + "Enter The Number Of Players [3 , 5] : " + "\u001B[0m") ;
+			playerCount = input.nextInt() ;
+			String trash = input.nextLine() ;
+			if ( playerCount >= 3 && playerCount <= 5 )
+				break ;
+		}
 		System.out.print("\u001B[36m" + "Enter Your Username : " + "\u001B[0m") ;
 		String username = input.nextLine() ;
 		// Build game
@@ -93,18 +97,27 @@ public class Game {
 		// Initial draw
 		initDraw() ;
 		// Set the top Card
-		topCard = pile.drawTopCard() ;
-		clearScreen(3) ;
+		while ( true ) {
+			topCard = pile.drawTopCard() ;
+			if ( topCard instanceof NormalCard )
+				break ;
+			pile.addCard(topCard) ;
+		}
+		clearScreen(2) ;
 	}
 	/**
 	 * Starts the Game in Multiplayer mode
 	 */
 	public void startMultiplayer() {
 		// Get info
-		clearScreen(0) ;
-		System.out.print("\u001B[36m" + "Enter The Number Of Players : " + "\u001B[36m") ;
-		playerCount = input.nextInt() ;
-		String trash = input.nextLine() ;
+		while ( true ) {
+			clearScreen(0) ;
+			System.out.print("\u001B[36m" + "Enter The Number Of Players [3 , 5] : " + "\u001B[36m") ;
+			playerCount = input.nextInt() ;
+			String trash = input.nextLine() ;
+			if ( playerCount >= 3 && playerCount <= 5 )
+				break ;
+		}
 		for ( int it = 1 ; it <= playerCount ; it ++ ) {
 			System.out.print("\u001B[36m" + "Username : " + "\u001B[0m") ;
 			String username = input.nextLine() ;
@@ -115,8 +128,13 @@ public class Game {
 		// Initial draw
 		initDraw() ;
 		// Set the top Card
-		topCard = pile.drawTopCard() ;
-		clearScreen(3) ;
+		while ( true ) {
+			topCard = pile.drawTopCard() ;
+			if ( topCard instanceof NormalCard )
+				break ;
+			pile.addCard(topCard) ;
+		}
+		clearScreen(2) ;
 	}
 	/**
 	 * Runs the Game as turns for each Player
@@ -126,12 +144,20 @@ public class Game {
 		int turn = 0 ;
 		// {+1} for clockwise AND {-1} for anticlockwise | Default is clockwise
 		int direction = 1 ;
+		// Stores number of cards player has to draw
+		int penalty = 0 ;
 		while ( !playerWithNoCardsExists() ) {
 			// Player whose turn it is to play a Card
 			Player targetPlayer = players.get(turn) ;
 			// Print details about the Player
+			if ( direction == 1 )
+				System.out.println("\u001B[36m" + "Direction => " + "\u001B[33m" + "Clockwise" + "\u001B[0m") ;
+			else 
+				System.out.println("\u001B[36m" + "Direction => " + "\u001B[33m" + "AntiClockwise" + "\u001B[0m") ;
+			System.out.println() ;
 			System.out.println("\u001B[36m" + targetPlayer.getUsername() + "'s Turn" + "\u001B[0m") ;
 			showTopCard() ;
+			System.out.println() ;
 			System.out.println("\u001B[36m" + targetPlayer.getUsername() + "'s Deck" + "\u001B[0m") ;
 			// if ( targetPlayer instanceof Human )
 			targetPlayer.show() ;
@@ -147,8 +173,13 @@ public class Game {
 				}
 				// The Card drawn from the pile is not avaliable for play and thus the Players turn is passed
 				else {
+					if ( penalty != 0 ) {
+						for ( int it = 1 ; it <= penalty ; it ++ )
+							targetPlayer.getDeck().addCard(pile.drawTopCard()) ;
+						penalty = 0 ;
+					}
 					turn = (turn + direction + playerCount) % (playerCount) ;
-					System.out.println("\u001B[33m" + "No Avaliable Moves : [TURN PASSED]" + "\u001B[0m") ;
+					System.out.println("\u001B[33m" + "No Avaliable Moves : " + "\u001B[33m" + "[TURN PASSED]" + "\u001B[0m") ;
 				}
 			}
 			// Player has at least one Card avaliable for play and plays a card
@@ -156,6 +187,14 @@ public class Game {
 				pile.addCard(topCard) ;
 				topCard = targetCard ;
 				Player nextPlayer = players.get((turn + direction + playerCount) % (playerCount)) ;
+				// Handle penalty
+				if ( penalty != 0 && !(targetCard instanceof DrawFourCard || targetCard instanceof DrawTwoCard) ) {
+					for ( int it = 1 ; it <= penalty ; it ++ )
+						targetPlayer.getDeck().addCard(pile.drawTopCard()) ;
+					System.out.println("\u001B[33m" + "Penalty : [" + penalty + " Cards]" + "\u001B[0m") ;
+					System.out.println() ;
+					penalty = 0 ;
+				}
 				// Non-Action Card
 				if ( targetCard instanceof NormalCard ) {
 					turn = (turn + direction + playerCount) % (playerCount) ;
@@ -168,14 +207,12 @@ public class Game {
 				}
 				// Draw-Four Card
 				else if ( targetCard instanceof DrawFourCard ) {
-					for ( int it = 1 ; it <= 4 ; it ++ )
-						nextPlayer.getDeck().addCard(pile.drawTopCard()) ;
+					penalty += 4 ;
 					turn = (turn + direction + playerCount) % (playerCount) ;
 				}
 				// Draw-Two Card
 				else if ( targetCard instanceof DrawTwoCard ) {
-					for ( int it = 1 ; it <= 2 ; it ++ )
-						nextPlayer.getDeck().addCard(pile.drawTopCard()) ;
+					penalty += 2 ;
 					turn = (turn + direction + playerCount) % (playerCount) ;
 				}
 				// Prize Card
@@ -184,7 +221,10 @@ public class Game {
 				}
 				// Reverse Card
 				else if ( targetCard instanceof ReverseCard ) {
-					direction = -1 ;
+					if ( direction == 1 )
+						direction = -1 ;
+					else
+						direction = 1 ;
 					turn = (turn + direction + playerCount) % (playerCount) ;
 				}
 				// Skip Card
@@ -202,7 +242,7 @@ public class Game {
 			}
 			// if Player is a Bot wait for 5 seconds otherwise wait for 1 second
 			if ( targetPlayer instanceof Bot )
-				clearScreen(5) ;
+				clearScreen(4) ;
 			else
 				clearScreen(1) ;
 		}
@@ -219,7 +259,7 @@ public class Game {
 		System.out.println("SCOREBOARD : ") ;
 		int it = 1 ;
 		for ( Player player : players ) {
-			System.out.println(it + ") " + player.getUsername() + " " + player.getPoint()) ;
+			System.out.println(it + ") " + player.getUsername() + "=>" + player.getPoint()) ;
 			it ++ ;
 		}
 		clearScreen(10) ;

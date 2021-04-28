@@ -54,7 +54,10 @@ public class Main {
 	/**
 	 * Shows the main menu
 	 */
-	public static void showMenu() {
+	public static void showMenu() {	
+		System.out.print("\u001B[33m") ;
+		System.out.println("#### Dirty Seven ####") ;
+		System.out.println() ;
 		System.out.print("\u001B[36m") ;
 		System.out.println("Play With Bots") ;
 		System.out.println("Play With Friends") ;
@@ -68,9 +71,4 @@ public class Main {
 		System.out.println("[Command Not Found]") ;
 	}
 }
-
-/*
-TODO :
-	add more visuals and get better input
-*/
 
