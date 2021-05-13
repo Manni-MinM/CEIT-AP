@@ -11,7 +11,7 @@ public class Post {
 	}
 	// Methods
 	public String toString() {
-		return title + " :\n" + context ;
+		return "#" + title + " :\n" + context ;
 	}
 }
 
